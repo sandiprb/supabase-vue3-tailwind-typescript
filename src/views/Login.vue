@@ -16,7 +16,7 @@
           method="POST"
           v-if="!isSubmitted"
         >
-          <div >
+          <div>
             <label for="email" class="block text-sm font-medium text-gray-700">
               Email
             </label>
@@ -33,7 +33,7 @@
             </div>
           </div>
 
-          <!-- <div>
+          <div>
             <label
               for="password"
               class="block text-sm font-medium text-gray-700"
@@ -51,7 +51,7 @@
                 v-model="form.password"
               />
             </div>
-          </div> -->
+          </div>
 
           <div>
             <button
@@ -63,7 +63,10 @@
           </div>
         </form>
 
-        <div v-else>We have sent login link to {{form.email}}, Please click on the link to continue!</div>
+        <div v-else>
+          We have sent login link to {{ form.email }}, Please click on the link
+          to continue!
+        </div>
 
         <!-- <div class="mt-6">
           <div class="relative">
@@ -116,8 +119,12 @@ export default defineComponent({
     const isSubmitted = ref(false);
     const form = reactive({ email: undefined });
     const handleFormSubmit = async (e: any) => {
-      handleLogin(toRaw(form));
-      isSubmitted.value = true
+      const { user, error } = await handleLogin(toRaw(form));
+      if (!error) {
+        if (!user) {
+          isSubmitted.value = true;
+        }
+      }
     };
 
     return { form, handleFormSubmit, handleOAuthLogin, isSubmitted };
