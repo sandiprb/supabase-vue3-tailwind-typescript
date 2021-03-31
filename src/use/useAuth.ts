@@ -7,9 +7,6 @@ const isLoggedin = computed(() => {
   return userSession.value?.user.id;
 });
 
-watch((isLoggedin), () => {
-window.location.reload()
-})
 
 /*
  * Handles user login via email + password into a supabase session.
